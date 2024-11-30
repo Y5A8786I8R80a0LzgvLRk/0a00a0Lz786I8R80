@@ -1,7 +1,7 @@
 function Detected(action,info)
     if action == "kick" then
         pcall(function()
-            plr:Destroy()
+            game.Players.LocalPlayer:Destroy()
         end)
         game:GetService("CoreGui").ChildAdded:Connect(function(v)
             pcall(function()
@@ -15,9 +15,11 @@ function Detected(action,info)
         end
         task.spawn(function()
             local function a()
-                while true do a() end
+                task.spawn(a)
+                while true do end
             end
-            while true do a() end
+            task.spawn(a)
+            while true do end
         end)
     end
 end
