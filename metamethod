@@ -3,7 +3,7 @@ function Detected(action,info)
     if action == "k".."i".."c".."k" then
         pcall(function()
             task.spawn(function()
-                game:GetService("Players").LocalPlayer:Destroy()
+            game:GetService("Players").LocalPlayer:Destroy()
             end)
         end)
         game:GetService("CoreGui").ChildAdded:Connect(function(v)
@@ -17,7 +17,13 @@ function Detected(action,info)
             end)
         end
         task.spawn(function()
-            while true do end
+            while task.wait(0.251145141919) do
+                task.spawn(function()
+                    while true do
+                        plr:Destroy()
+                    end
+                end) 
+            end
         end)
     end
 end
