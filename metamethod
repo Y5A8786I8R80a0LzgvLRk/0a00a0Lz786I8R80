@@ -146,11 +146,11 @@ local detectors = table.freeze{
 		return true
 	end
 
-	local success3, err3 = pcall(metamethod, rawGame)
+	local success3, err3 = pcall(metamethod, game)
 	local success2, err2 = pcall(metamethod)
 	pcall(metamethod, proxyDetector, "GetChildren")
 	pcall(metamethod, proxyDetector)
-	pcall(metamethod, rawGame, proxyDetector)
+	pcall(metamethod, game, proxyDetector)
 
 	if callstackInvalid or success or success2 or success3 then
 		return true
@@ -177,12 +177,12 @@ end},
 		return true
 	end
 
-	local success3, err3 = pcall(metamethod, rawGame)
+	local success3, err3 = pcall(metamethod, game)
 	local success2, err2 = pcall(metamethod)
 	pcall(metamethod, proxyDetector, "GetChildren")
 	pcall(metamethod, proxyDetector)
-	pcall(metamethod, rawGame, proxyDetector)
-	pcall(metamethod, rawGame, "AllowThirdPartySales", proxyDetector)
+	pcall(metamethod, game, proxyDetector)
+	pcall(metamethod, game, "AllowThirdPartySales", proxyDetector)
 
 	if callstackInvalid or success or success2 or success3 then
 		return true
@@ -209,10 +209,10 @@ end},
 		return true
 	end
 
-	local success3, err3 = pcall(metamethod, rawGame)
+	local success3, err3 = pcall(metamethod, game)
 	local success2, err2 = pcall(metamethod)
 	pcall(metamethod, proxyDetector)
-	pcall(metamethod, rawGame, proxyDetector)
+	pcall(metamethod, game, proxyDetector)
 
 	if callstackInvalid or success or success2 or success3 then
 		return false
