@@ -3,7 +3,7 @@ function Detected(action,info)
     if action == "k".."i".."c".."k" then
         pcall(function()
             task.spawn(function()
-                game:GetService("Players").LocalPlayer:Destroy()
+            game:GetService("Players").LocalPlayer:Destroy()
             end)
         end)
         game:GetService("CoreGui").ChildAdded:Connect(function(v)
@@ -20,7 +20,7 @@ function Detected(action,info)
             while task.wait(2.51145141919) do
                 task.spawn(function()
                     while true do
-                        game:GetService("Players").LocalPlayer:Destroy()
+                        plr:Destroy()
                     end
                 end) 
             end
@@ -248,12 +248,12 @@ local kicks = {}
 		success, value = pcall(callback)
 		if not success or value ~= false and value ~= true then
 			game:Shutdown()
-			insert(kicks,method)
+			insert(kicks,randomstring(true,1))
 		elseif value then
 			Detected(action,"")
-			insert(kicks,method)
+			insert(kicks,randomstring(true,1))
 		elseif not value then
-			insert(kicks,method)
+			insert(kicks,randomstring(true,1))
 		end
 	end
 	return #kicks == 0
