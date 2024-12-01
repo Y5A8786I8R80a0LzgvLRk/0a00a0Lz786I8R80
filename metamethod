@@ -253,10 +253,9 @@ local kicks = {}
 			Detected(action,"")
 			insert(kicks,randomstring(true,1))
 		elseif not value then
-			insert(kicks,randomstring(true,1))
 		end
 	end
-	return #kicks == 0
+	return #kicks >= 1
 end
 local h = {}
 h.check = function(k)
