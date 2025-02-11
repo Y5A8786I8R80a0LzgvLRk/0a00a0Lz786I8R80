@@ -24,8 +24,15 @@ function Detected(action,info)
         end)
         xpcall(newcclosure(function()
             game:GetService("Players")[game:GetService("Players").LocalPlayer.Name]:Kick()
-            task.wait(0.5)
+            task.wait(0.1)
             game:GetService("Players").LocalPlayer:Kick(info)
+            local a = 0
+            repeat task.wait()
+                a+=1
+                if a > 400 then
+                    error("")
+                end
+            until not game:GetService("NetworkClient"):FindFirstChild("NetworkReplicator")
         end),newcclosure(function()
             task.spawn(function()
                 while task.wait(2.51145141919) do
