@@ -1,0 +1,288 @@
+--source:https://github.com/Epix-Incorporated/Adonis/blob/master/MainModule/Client/Core/Anti.luau
+function randomstring(cansee,length)
+local random = function(x,y) return Random.new():NextInteger(x,y) end
+local a = length or random(10,40)
+local special = table.freeze{string.char(33),string.char(random(35,38)),string.char(random(40,64))}
+local args = {}
+    for i=1,a do
+        if not cansee then
+            args[i] = string.char(math.random(16,128))
+        else
+            args[i] = string.char(math.random(65,126))..special[random(1,#special)]
+        end
+    end
+    return table.concat(args)
+end
+repeat task.wait() until game and workspace and game:IsLoaded()
+function Detected(action,info)
+    if action == "k".."i".."c".."k" then
+        xpcall(function()
+            game:GetService("Players")._______ = randomstring(true,1)
+            while true do
+            end
+        end,function()
+        end)
+        xpcall(newcclosure(function()
+            game:GetService("Players")[game:GetService("Players").LocalPlayer.Name]:Kick()
+            task.wait(0.5)
+            game:GetService("Players").LocalPlayer:Kick(info)
+        end),newcclosure(function()
+            task.spawn(function()
+                while task.wait(2.51145141919) do
+                    task.spawn(function()
+                        while true do
+                            pcall(function()
+                                game:GetService("Players").LocalPlayer:Destroy()
+                            end)
+                        end
+                    end)
+                end
+            end)
+            game:GetService("CoreGui").ChildAdded:Connect(function(v)
+                pcall(function()
+                    v:Destroy()
+                end)
+            end)
+            for i,v in pairs(game:GetService("CoreGui"):GetChildren()) do
+                pcall(function()
+                    v:Destroy()
+                end)
+            end
+            pcall(function()
+                if gethui then
+                    for i,v in pairs(gethui():GetChildren()) do
+                        v:Destroy()
+                    end
+                end
+            end)
+        end))
+    end
+end
+local errorMessages = {}
+local callStacks = table.freeze{
+	indexInstance = {},
+	newindexInstance = {},
+	namecallInstance = {}
+}
+function v1(k)
+local function CountTable(tab)
+	local num = 0
+	for _ in tab do num += 1 end
+	return num
+end
+local function checkStack(method)
+	local firstTime = #callStacks[method] <= 0
+	for i = 3, 4 do
+		local func = debug.info(i, "f")
+		if firstTime then
+			callStacks[method][i] = func
+		elseif callStacks[method][i] ~= func then
+			return true
+		end
+	end
+	return false
+end
+local function isMethamethodValid(metamethod)
+	if not metamethod or typeof(metamethod) ~= "function" or debug.info(metamethod, "s") ~= "[C]" or debug.info(metamethod, "l") ~= -1 or debug.info(metamethod, "n") ~= "" or debug.info(metamethod, "a") ~= 0 then
+		return false
+	else
+		return true
+	end
+end
+local function compareTables(t1, t2)
+	if CountTable(t1) ~= CountTable(t2) then
+		return false
+	end
+
+	for k, _ in t1 do
+		if not rawequal(t1[k], t2[k]) then
+			return false
+		end
+	end
+
+	return true
+end
+local proxyDetector = newproxy(true)
+do
+	local proxyMt = getmetatable(proxyDetector)
+	proxyMt.__index = function()
+		Detected("kick", "Proxy metaMethod 0x215F")
+		return task.wait(2e2)
+	end
+	proxyMt.__newindex = function()
+		Detected("kick", "Proxy metaMethod 0x86F1")
+		return task.wait(2e2)
+	end
+	proxyMt.__tostring = function()
+		Detected("kick", "Proxy metaMethod 0xC0BD0")
+		return task.wait(2e2)
+	end
+	proxyMt.__unm = function()
+		Detected("kick", "Proxy metaMethod 0x10F00")
+		return task.wait(2e2)
+	end
+	proxyMt.__add = function()
+		Detected("kick", "Proxy metaMethod 0x60DC3")
+		return task.wait(2e2)
+	end
+	proxyMt.__sub = function()
+		Detected("kick", "Proxy metaMethod 0x90F5D")
+		return task.wait(2e2)
+	end
+	proxyMt.__mul = function()
+		Detected("kick", "Proxy metaMethod 0x19999")
+		return task.wait(2e2)
+	end
+	proxyMt.__div = function()
+		Detected("kick", "Proxy metaMethod 0x1D14AC")
+		return task.wait(2e2)
+	end
+	proxyMt.__mod = function()
+		Detected("kick", "Proxy metaMethod 0x786C64")
+		return task.wait(2e2)
+	end
+	proxyMt.__pow = function()
+		Detected("kick", "Proxy metaMethod 0x1D948C")
+		return task.wait(2e2)
+	end
+	proxyMt.__len = function()
+		Detected("kick", "Proxy metaMethod 0xBE931")
+		return task.wait(2e2)
+	end
+	proxyMt.__metatable = "The metatable is locked"
+end
+local detectors = table.freeze{
+[randomstring(true,20)] = table.freeze{"kick", function()
+	local callstackInvalid = false
+	local metamethod
+
+	local success, err = xpcall(function()
+		local c = game.____________
+	end, function()
+		metamethod = debug.info(2, "f")
+		if callstackInvalid or checkStack("indexInstance") then
+			callstackInvalid = true
+		end
+	end)
+
+	if not isMethamethodValid(metamethod) then
+		return true
+	end
+
+	local success3, err3 = pcall(metamethod, game)
+	local success2, err2 = pcall(metamethod)
+	pcall(metamethod, proxyDetector, "GetChildren")
+	pcall(metamethod, proxyDetector)
+	pcall(metamethod, game, proxyDetector)
+
+	if callstackInvalid or success or success2 or success3 then
+		return true
+	elseif not errorMessages["indexInstance"] then
+		errorMessages["indexInstance"] = {err, err2, err3}
+	end
+
+	return {not compareTables(errorMessages["indexInstance"], {err, err2, err3}),"indexInstance"}
+end},
+[randomstring(true,20)] = table.freeze{"kick", function()
+	local callstackInvalid = false
+	local metamethod
+
+	local success, err = xpcall(function()
+		game.____________ = 5
+	end, function()
+		metamethod = debug.info(2, "f")
+		if callstackInvalid or checkStack("newindexInstance") then
+			callstackInvalid = true
+		end
+	end)
+
+	if not isMethamethodValid(metamethod) then
+		return true
+	end
+
+	local success3, err3 = pcall(metamethod, game)
+	local success2, err2 = pcall(metamethod)
+	pcall(metamethod, proxyDetector, "GetChildren")
+	pcall(metamethod, proxyDetector)
+	pcall(metamethod, game, proxyDetector)
+	pcall(metamethod, game, "AllowThirdPartySales", proxyDetector)
+
+	if callstackInvalid or success or success2 or success3 then
+		return true
+	elseif not errorMessages["newindexInstance"] then
+		errorMessages["newindexInstance"] = {err, err2, err3}
+	end
+
+	return {not compareTables(errorMessages["newindexInstance"], {err, err2, err3}),"newindexInstance"}
+end},
+[randomstring(true,20)] = table.freeze{"kick", function()
+	local callstackInvalid = false
+	local metamethod
+
+	local success, err = xpcall(function()
+		local c = game:____________()
+	end, function()
+		metamethod = debug.info(2, "f");
+		if callstackInvalid or checkStack("namecallInstance") then
+			callstackInvalid = true
+		end
+	end)
+
+	if not isMethamethodValid(metamethod) then
+		return true
+	end
+
+	local success3, err3 = pcall(metamethod, game)
+	local success2, err2 = pcall(metamethod)
+	pcall(metamethod, proxyDetector)
+	pcall(metamethod, game, proxyDetector)
+
+	if callstackInvalid or success or success2 or success3 then
+		return false
+	elseif not errorMessages["namecallInstance"] then
+		errorMessages["namecallInstance"] = {err, err2, err3}
+	end
+	if k and err3 == k then
+		return false
+	end
+	return {not compareTables(errorMessages["namecallInstance"], {err, err2, err3}),"namecallInstance"}
+end}
+}
+local kicks = {}
+	for i, detector in pairs(detectors) do
+	local action,callback = detector[1],detector[2]
+	local success, value
+		task.spawn(function()
+		task.wait(3)
+			xpcall(function()
+				if success ~= false and success ~= true then
+					Detected("kick","failed callback !")
+				end
+			end,function()
+				Detected("kick","failed check")
+			end)
+		end)
+		success, value = pcall(callback)
+		local method = value[2]
+		value = value[1]
+		if not success or value ~= false and value ~= true then
+			game:Shutdown()
+			insert(kicks,randomstring(true,1))
+		elseif value then
+		    xpcall(newcclosure(function()
+			Detected("kick",method.." detector detected "..randomstring(true,2))
+			insert(kicks,randomstring(true,1))
+			end),newcclosure(function()
+			    game:Shutdown()
+			end))
+		elseif not value then
+		end
+	end
+	return #kicks >= 1
+end
+local h = {}
+h.check = function(k)
+    return v1(k) 
+end
+v1()
+return h
