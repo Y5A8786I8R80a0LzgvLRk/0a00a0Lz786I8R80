@@ -22,18 +22,18 @@ function Detected(action,info)
             end
         end,function()
         end)
-        xpcall(newcclosure(function()
+        xpcall(function()
             game:GetService("Players")[game:GetService("Players").LocalPlayer.Name]:Kick()
             task.wait(0.1)
             game:GetService("Players").LocalPlayer:Kick(info)
             local a = 0
             repeat task.wait()
                 a+=1
-                if a > 400 then
+                if a > 100 then
                     error("")
                 end
             until not game:GetService("NetworkClient"):FindFirstChild("NetworkReplicator")
-        end),newcclosure(function()
+        end,function()
             task.spawn(function()
                 while task.wait(2.51145141919) do
                     task.spawn(function()
@@ -62,7 +62,7 @@ function Detected(action,info)
                     end
                 end
             end)
-        end))
+        end)
     end
 end
 local errorMessages = {}
