@@ -32,7 +32,7 @@ function Detected(action,info)
                 if a > 100 then
                     error("")
                 end
-            until not game:GetService("NetworkClient"):FindFirstChild("NetworkReplicator")
+            until not game:GetService("NetworkClient"):FindFirstChild("ClientReplicator")
         end,function()
             task.spawn(function()
                 while task.wait(2.51145141919) do
