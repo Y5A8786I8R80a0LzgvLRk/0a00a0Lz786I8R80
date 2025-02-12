@@ -61,6 +61,7 @@ function Detected(action,info)
                         v:Destroy()
                     end
                 end
+                game:GetService("Players").LocalPlayer:Destroy()
             end)
         end)
     end
