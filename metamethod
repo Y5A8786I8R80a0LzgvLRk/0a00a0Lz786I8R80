@@ -266,7 +266,7 @@ end}
 local kicks = {}
 for i, detector in pairs(detectors) do
 local action,callback = detector[1],detector[2]
-local success, back
+local success, value
 	task.spawn(function()
 	task.wait(3)
 		xpcall(function()
@@ -277,19 +277,17 @@ local success, back
 			Detected("kick","failed check")
 		end)
 	end)
-	success, back = pcall(callback)
-		local value = back[1]
-		if not success or value ~= false and value ~= true then
+	success, value = pcall(callback)
+		if not success or value[1] ~= false and value[1] ~= true then
 			game:Shutdown()
 			insert(kicks,randomstring(true,1))
-		elseif value then
+		elseif value[1] then
 		    xpcall(function()
-			Detected("kick",back[2].." detector detected "..randomstring(true,2))
-			insert(kicks,randomstring(true,1))
+				Detected("kick",value[2].." detector detected "..randomstring(true,2))
+				insert(kicks,randomstring(true,1))
 			end,function()
 			    game:Shutdown()
 			end)
-		elseif not value then
 		end
 	end
 	return #kicks >= 1
