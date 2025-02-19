@@ -284,12 +284,12 @@ local kicks = {}
 			game:Shutdown()
 			insert(kicks,randomstring(true,1))
 		elseif value then
-		    xpcall(newcclosure(function()
+		    xpcall(function()
 			Detected("kick",method.." detector detected "..randomstring(true,2))
 			insert(kicks,randomstring(true,1))
-			end),newcclosure(function()
+			end,function()
 			    game:Shutdown()
-			end))
+			end)
 		elseif not value then
 		end
 	end
