@@ -266,7 +266,7 @@ end}
 local kicks = {}
 	for i, detector in pairs(detectors) do
 	local action,callback = detector[1],detector[2]
-	local success, value
+	local success, back
 		task.spawn(function()
 		task.wait(3)
 			xpcall(function()
@@ -293,7 +293,7 @@ local kicks = {}
 		elseif not value then
 		end
 	end
-	return #kicks >= 1 : boolean
+	return #kicks >= 1
 end
 local h = {}
 h.check = function(k)
