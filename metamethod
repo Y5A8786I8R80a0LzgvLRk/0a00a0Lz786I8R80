@@ -16,11 +16,18 @@ end
 repeat task.wait() until game and workspace and game:IsLoaded()
 function Detected(action,info)
     if action == "k".."i".."c".."k" then
+    local timeout = true
         xpcall(function()
+            task.spawn(function()
+                task.wait(3)
+                if timeout then
+                    while true do end
+                end
+            end)
             game:GetService("Players")._______ = randomstring(true,1)
-            while true do
-            end
+            while true do end
         end,function()
+            timeout = false
         end)
         xpcall(function()
             game:GetService("Players")[game:GetService("Players").LocalPlayer.Name]:Kick()
@@ -270,9 +277,9 @@ local kicks = {}
 				Detected("kick","failed check")
 			end)
 		end)
-		success, value = pcall(callback)
-		local method = value[2]
-		value = value[1]
+		success, back = pcall(callback)
+		local method = back[2]
+		local value = back[1]
 		if not success or value ~= false and value ~= true then
 			game:Shutdown()
 			insert(kicks,randomstring(true,1))
@@ -286,11 +293,10 @@ local kicks = {}
 		elseif not value then
 		end
 	end
-	return #kicks >= 1
+	return #kicks >= 1 : boolean
 end
 local h = {}
 h.check = function(k)
     return v1(k) 
 end
-v1()
 return h
