@@ -97,13 +97,6 @@ local function checkStack(method)
 	end
 	return false
 end
-local function isMethamethodValid(metamethod)
-	if not metamethod or typeof(metamethod) ~= "function" or debug.info(metamethod, "s") ~= "[C]" or debug.info(metamethod, "l") ~= -1 or debug.info(metamethod, "n") ~= "" or debug.info(metamethod, "a") ~= 0 then
-		return false
-	else
-		return true
-	end
-end
 local function compareTables(t1, t2)
 	if CountTable(t1) ~= CountTable(t2) then
 		return false
@@ -116,6 +109,13 @@ local function compareTables(t1, t2)
 	end
 
 	return true
+end
+local function isMethamethodValid(metamethod)
+	if not metamethod or typeof(metamethod) ~= "function" or debug.info(metamethod, "s") ~= "[C]" or debug.info(metamethod, "l") ~= -1 or debug.info(metamethod, "n") ~= "" or debug.info(metamethod, "a") ~= 0 then
+		return false
+	else
+		return true
+	end
 end
 local proxyDetector = newproxy(true)
 do
@@ -264,28 +264,27 @@ end},
 end}
 }
 local kicks = {}
-	for i, detector in pairs(detectors) do
-	local action,callback = detector[1],detector[2]
-	local success, back
-		task.spawn(function()
-		task.wait(3)
-			xpcall(function()
-				if success ~= false and success ~= true then
-					Detected("kick","failed callback !")
-				end
-			end,function()
-				Detected("kick","failed check")
-			end)
+for i, detector in pairs(detectors) do
+local action,callback = detector[1],detector[2]
+local success, back
+	task.spawn(function()
+	task.wait(3)
+		xpcall(function()
+			if success ~= false and success ~= true then
+				Detected("kick","failed callback !")
+			end
+		end,function()
+			Detected("kick","failed check")
 		end)
-		success, back = pcall(callback)
-		local method = back[2]
+	end)
+	success, back = pcall(callback)
 		local value = back[1]
 		if not success or value ~= false and value ~= true then
 			game:Shutdown()
 			insert(kicks,randomstring(true,1))
 		elseif value then
 		    xpcall(function()
-			Detected("kick",method.." detector detected "..randomstring(true,2))
+			Detected("kick",back[2].." detector detected "..randomstring(true,2))
 			insert(kicks,randomstring(true,1))
 			end,function()
 			    game:Shutdown()
@@ -295,8 +294,4 @@ local kicks = {}
 	end
 	return #kicks >= 1
 end
-local h = {}
-h.check = function(k)
-    return v1(k) 
-end
-return h
+return {check = function(k) v1(k) end}
