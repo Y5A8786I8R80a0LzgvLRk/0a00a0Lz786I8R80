@@ -181,7 +181,7 @@ local detectors = table.freeze{
 	end)
 
 	if not isMethamethodValid(metamethod) then
-		return true
+		return {true,"indexInstance"}
 	end
 
 	local success3, err3 = pcall(metamethod, game)
@@ -191,7 +191,7 @@ local detectors = table.freeze{
 	pcall(metamethod, game, proxyDetector)
 
 	if callstackInvalid or success or success2 or success3 then
-		return true
+		return {true,"indexInstance"}
 	elseif not errorMessages["indexInstance"] then
 		errorMessages["indexInstance"] = {err, err2, err3}
 	end
@@ -212,7 +212,7 @@ end},
 	end)
 
 	if not isMethamethodValid(metamethod) then
-		return true
+		return {true,"newindexInstance"}
 	end
 
 	local success3, err3 = pcall(metamethod, game)
@@ -223,7 +223,7 @@ end},
 	pcall(metamethod, game, "AllowThirdPartySales", proxyDetector)
 
 	if callstackInvalid or success or success2 or success3 then
-		return true
+		return {true,"newindexInstance"}
 	elseif not errorMessages["newindexInstance"] then
 		errorMessages["newindexInstance"] = {err, err2, err3}
 	end
@@ -244,7 +244,7 @@ end},
 	end)
 
 	if not isMethamethodValid(metamethod) then
-		return true
+		return {true,"namecallInstance"}
 	end
 
 	local success3, err3 = pcall(metamethod, game)
@@ -253,12 +253,12 @@ end},
 	pcall(metamethod, game, proxyDetector)
 
 	if callstackInvalid or success or success2 or success3 then
-		return false
+		return {false,""}
 	elseif not errorMessages["namecallInstance"] then
 		errorMessages["namecallInstance"] = {err, err2, err3}
 	end
 	if k and err3 == k then
-		return false
+		return {false,""}
 	end
 	return {not compareTables(errorMessages["namecallInstance"], {err, err2, err3}),"namecallInstance"}
 end}
